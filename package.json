@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/thejonathassilva/register-manager#readme",
   "dependencies": {
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
+    "cnpj": "^4.0.3",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
+    "gerador-validador-cpf": "^5.0.2",
     "mongoose": "^8.4.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

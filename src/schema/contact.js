@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-let ContactSchema = new mongoose.Schema({
+let ContactSchema = mongoose.Schema({
   phone: {
     type: String,
     required: true
@@ -15,4 +15,4 @@ let ContactSchema = new mongoose.Schema({
   whatsApp: Boolean
 });
 
-module.exports.schema = ContactSchema;
+module.exports = ContactSchema;

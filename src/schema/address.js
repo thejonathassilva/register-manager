@@ -1,16 +1,21 @@
 'use-strict'
 
-const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 
-let AddressSchema = new mongoose.Schema({
+let AddressSchema = Schema({
   street: String,
-  number: String,
+  StreetNumber: String,
   complement: String,
   city: String,
   state: String,
   postalCode: String,
-  locality: String,
-  country: String
+  neighborhood: String,
+  country: String,
+  geocode: {
+    lng: { type: Number, min: -180, max: 180 },
+    lat: { type: Number, min: -90, max: 90 },
+    source: String
+  }
 });
 
-module.exports.schema = AddressSchema;
+module.exports = AddressSchema;
