@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { hashPassword } = require('../helpers/hashHelper');
 const { isValidCPF } = require('../helpers/validation');
+const { generateUniqueUsername } = require('../helpers/generateUsername');
 const ContactSchema = require('../schema/contact');
 const AddressSchema = require('../schema/address');
 
@@ -18,6 +19,7 @@ const EmployeeSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid CPF!`
         }
     },
+    username: { type: String, unique: true },
     password: { type: String, required: true },
     gender: { type: String, required: true },
     company: { type: mongoose.Schema.Types.ObjectId, ref: 'company', required: true },
@@ -36,6 +38,11 @@ const EmployeeSchema = new mongoose.Schema({
 EmployeeSchema.pre('save', async function(next) {
     if (this.isModified('password') || this.isNew) {
         this.password = await hashPassword(this.password);
+    }
+
+    if (this.isNew) {
+        const company = await mongoose.model('Company').findById(this.company);
+        this.username = await generateUniqueUsername(this.firstName, this.lastName, company.companyName, this.dateOfBirth);
     }
     next();
 });
