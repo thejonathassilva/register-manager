@@ -8,6 +8,7 @@ const AddressSchema = require('../schema/address');
 const ActivitySchema = require('../schema/activity');
 const { hashPassword } = require('../helpers/hashHelper');
 const { isValidCNPJ } = require('../helpers/validation');
+const { CNPJDataNotFoundError } = require('../helpers/exception');
 
 const CompanySchema = new mongoose.Schema({
     companyName: { type: String, required: true },
@@ -41,6 +42,9 @@ CompanySchema.pre('save', async function(next) {
     if (this.isNew) {
         try {
             const response = await axios.get(`https://www.receitaws.com.br/v1/cnpj/${this.CNPJ}`);
+            if(!response.data) {
+                throw new CNPJDataNotFoundError();
+            }
             const data = response.data;
             this.activity = {
                 main_activity: data.atividade_principal,

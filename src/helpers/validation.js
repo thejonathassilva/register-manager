@@ -1,14 +1,19 @@
 const { validate: validateCPF } = require('gerador-validador-cpf');
+const { InvalidCPFError, InvalidCNPJError } = require('./exception');
 
 async function isValidCNPJ(cnpjNumber) {
     const { validate } = await import('cnpj');
-    // Adiciona a formatação correta do CNPJ
     const formattedCNPJ = cnpjNumber.replace(/[^\d]+/g, '');
-    return validate(formattedCNPJ);
+    if(!validate(formattedCNPJ)) {
+        throw new InvalidCNPJError();
+    } return true;
 }
 
 function isValidCPF(cpf) {
-    return validateCPF(cpf);
+    if(!validateCPF(cpf)) {
+        throw new InvalidCPFError();
+    }
+    return true;
 }
 
 module.exports = {
