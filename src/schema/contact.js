@@ -13,6 +13,6 @@ let ContactSchema = mongoose.Schema({
   },
   url: String,
   whatsApp: Boolean
-});
+}, { _id: false});
 
 module.exports = ContactSchema;

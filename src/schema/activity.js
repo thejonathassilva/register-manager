@@ -11,6 +11,6 @@ let ActivitySchema = Schema({
       code: String,
       text: String
   }]
-});
+}, { _id: false});
 
 module.exports = ActivitySchema;

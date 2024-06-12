@@ -25,6 +25,7 @@ const CompanySchema = new mongoose.Schema({
     address: { type: AddressSchema, required: true },
     contact: { type: ContactSchema, required: true },
     activity: { type: ActivitySchema },
+    employees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'employee' }],
     accreditationNumber: { type: String },
     accreditationDate: { type: Date },
     validUntil: { type: Date },

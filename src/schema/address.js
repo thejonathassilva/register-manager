@@ -16,6 +16,6 @@ let AddressSchema = Schema({
     lat: { type: Number, min: -90, max: 90 },
     source: String
   }
-});
+}, { _id: false});
 
 module.exports = AddressSchema;
